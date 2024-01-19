@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, Grid, Typography, TextField, Checkbox } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Typography,
+  TextField,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
 import styled from "styled-components";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
@@ -35,8 +42,8 @@ export default function Form() {
             Radio Input
           </Typography>
           <CheckboxDiv>
-            <Checkbox label="Radion Option 1" />
-            <Checkbox label="Radion Option 1" />
+            <FormControlLabel control={<Checkbox />} label="Radio Option 1" />
+            <FormControlLabel control={<Checkbox />} label="Radio Option 2" />
           </CheckboxDiv>
         </Grid>
       </Grid>
