@@ -87,6 +87,8 @@ export default function Form() {
             variant="outlined"
             value={text}
             type={text}
+            required
+            error={text.length <= 2 ? true : false}
             onChange={(e) => setText(e.target.value)}
           />
 
@@ -139,9 +141,11 @@ export default function Form() {
             <Typography sx={{ fontSize: "12px" }}>Date Input</Typography>
             <Field>
               <TextField
-                label="23-Jul-21"
+                label="1.23.24"
                 fullWidth
                 value={date}
+                required
+                error={date.length < 3 ? true : false}
                 onChange={(e) => setDate(e.target.value)}
               />
               <CalendarMonthIcon sx={{ position: "absolute", right: "10px" }} />
