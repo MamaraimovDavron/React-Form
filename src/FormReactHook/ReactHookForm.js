@@ -32,39 +32,19 @@ const Field = styled.div`
   justify-content: center;
   position: relative;
 `;
-export default function Form() {
+export default function ReactHookForm() {
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => console.log(data);
 
-  const [text, setText] = useState("");
-  const [radio, setRadio] = useState("female");
-  const [select, setSelect] = useState("");
-  const [date, setDate] = useState("");
-  const [check, setCheck] = useState(false);
-  const [slider, setSlider] = useState("");
-
-  const submit = (e) => {
-    e.preventDefault();
-    console.log(text);
-    console.log(radio);
-    console.log(select);
-    console.log(date);
-    console.log(check);
-    console.log(slider);
+  const submit = (data) => {
+    console.log(data);
   };
 
-  const reset = () => {
-    setText("");
-    setRadio("");
-    setDate("");
-    setSelect("");
-    setCheck("");
-    setSlider("");
-  };
+  const reset = () => {};
 
   return (
-    <Box component={"form"} onSubmit={submit}>
+    <Box component={"form"} onSubmit={handleSubmit(submit)}>
       <Grid
         container
         sx={{
@@ -90,11 +70,8 @@ export default function Form() {
             label="Text Input"
             fullWidth
             variant="outlined"
-            value={text}
-            type={text}
             required
-            error={text.length <= 2 ? true : false}
-            onChange={(e) => setText(e.target.value)}
+            {...register("Text Input")}
           />
 
           <FormControl>
@@ -104,10 +81,7 @@ export default function Form() {
             >
               Radio Input
             </FormLabel>
-            <RadioGroup
-              defaultValue={radio}
-              onChange={(e) => setRadio(e.target.value)}
-            >
+            <RadioGroup defaultValue {...register("radio")}>
               <FormControlLabel
                 control={<Radio />}
                 label="Radio Option 1"
@@ -130,8 +104,7 @@ export default function Form() {
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
               label="Age"
-              value={select}
-              onChange={(e) => setSelect(e.target.value)}
+              {...register("select")}
             >
               <MenuItem value="">
                 <em>None</em>
@@ -148,40 +121,27 @@ export default function Form() {
               <TextField
                 label="1.23.24"
                 fullWidth
-                value={date}
                 required
-                error={date.length < 3 ? true : false}
-                onChange={(e) => setDate(e.target.value)}
+                {...register("date")}
               />
               <CalendarMonthIcon sx={{ position: "absolute", right: "10px" }} />
             </Field>
           </Box>
 
-          <FormGroup fullWidth>
+          <FormGroup fullWidth {...register("checkbox")}>
             <Typography sx={{ fontSize: "13px", margin: "10px 0" }}>
               Checkbox Input
             </Typography>
             <FormControlLabel
               label="Checkbox Option 1"
-              control={
-                <Checkbox
-                  checked={!check}
-                  onChange={(e) => setCheck(!e.target.value)}
-                />
-              }
+              value={"checkbox1"}
+              control={<Checkbox />}
             />
 
             <FormControlLabel
-              control={
-                <Checkbox
-                  label="Checkbox Option 2"
-                  checked={check}
-                  onChange={(e) => setCheck(e.target.value)}
-                />
-              }
-              value={check}
+              control={<Checkbox />}
+              value={"checkbox2"}
               label="Checkbox Option 2"
-              onChange={(e) => setCheck(e.target.value)}
             />
           </FormGroup>
 
@@ -192,8 +152,7 @@ export default function Form() {
               defaultValue={70}
               aria-label="Small"
               valueLabelDisplay="auto"
-              value={slider}
-              onChange={(e) => setSlider(e.target.value)}
+              {...register("slider")}
             />
           </Box>
 
