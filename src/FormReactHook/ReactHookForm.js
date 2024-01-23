@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import {
   Box,
@@ -66,12 +65,10 @@ export default function ReactHookForm() {
             Form Demo
           </Typography>
           <TextField
-            // id="outlined-basic"
             label="Text Input"
             fullWidth
             variant="outlined"
-            required
-            {...register("Text Input")}
+            {...register("Text Input", { required: true, maxLength: 20 })}
           />
 
           <FormControl>
@@ -121,8 +118,7 @@ export default function ReactHookForm() {
               <TextField
                 label="1.23.24"
                 fullWidth
-                required
-                {...register("date")}
+                {...register("date", { required: true, maxLength: 10 })}
               />
               <CalendarMonthIcon sx={{ position: "absolute", right: "10px" }} />
             </Field>
