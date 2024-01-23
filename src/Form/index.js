@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import {
   Box,
@@ -31,14 +32,34 @@ const Field = styled.div`
   position: relative;
 `;
 export default function Form() {
-  const [value, setValue] = React.useState("");
+  const [text, setText] = useState("");
+  const [radio, setRadio] = useState("female");
+  const [select, setSelect] = useState("");
+  const [date, setDate] = useState("");
+  const [check, setCheck] = useState(false);
+  const [slider, setSlider] = useState("");
 
-  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setValue((event.target as HTMLInputElement).value);
-  // };
+  const submit = (e) => {
+    e.preventDefault();
+    console.log(text);
+    console.log(radio);
+    console.log(select);
+    console.log(date);
+    console.log(check);
+    console.log(slider);
+  };
+
+  const reset = () => {
+    setText("");
+    setRadio("");
+    setDate("");
+    setSelect("");
+    setCheck("");
+    setSlider("");
+  };
 
   return (
-    <Box>
+    <Box component={"form"} onSubmit={submit}>
       <Grid
         container
         sx={{
@@ -60,35 +81,35 @@ export default function Form() {
             Form Demo
           </Typography>
           <TextField
-            id="outlined-basic"
+            // id="outlined-basic"
             label="Text Input"
             fullWidth
             variant="outlined"
+            value={text}
+            type={text}
+            onChange={(e) => setText(e.target.value)}
           />
-          <Typography
-            component="h6"
-            variant="h6"
-            sx={{ color: "gray", fontSize: "14px" }}
-          >
-            Radio Input
-          </Typography>
+
           <FormControl>
-            <FormLabel id="demo-controlled-radio-buttons-group"></FormLabel>
+            <FormLabel
+              id="demo-controlled-radio-buttons-group"
+              sx={{ color: "gray", fontSize: "14px" }}
+            >
+              Radio Input
+            </FormLabel>
             <RadioGroup
-              // aria-labelledby="demo-controlled-radio-buttons-group"
-              // name="controlled-radio-buttons-group"
-              value={value}
-              // onChange={handleChange}
+              defaultValue={radio}
+              onChange={(e) => setRadio(e.target.value)}
             >
               <FormControlLabel
-                value="female"
                 control={<Radio />}
                 label="Radio Option 1"
+                value="female"
               />
               <FormControlLabel
-                value="male"
                 control={<Radio />}
                 label="Radio Option 2"
+                value="male"
               />
             </RadioGroup>
           </FormControl>
@@ -102,6 +123,8 @@ export default function Form() {
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
               label="Age"
+              value={select}
+              onChange={(e) => setSelect(e.target.value)}
             >
               <MenuItem value="">
                 <em>None</em>
@@ -111,10 +134,16 @@ export default function Form() {
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
           </FormControl>
+
           <Box>
             <Typography sx={{ fontSize: "12px" }}>Date Input</Typography>
             <Field>
-              <TextField label="23-Jul-21" fullWidth />
+              <TextField
+                label="23-Jul-21"
+                fullWidth
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
               <CalendarMonthIcon sx={{ position: "absolute", right: "10px" }} />
             </Field>
           </Box>
@@ -124,12 +153,26 @@ export default function Form() {
               Checkbox Input
             </Typography>
             <FormControlLabel
-              control={<Checkbox defaultChecked />}
               label="Checkbox Option 1"
+              control={
+                <Checkbox
+                  checked={!check}
+                  onChange={(e) => setCheck(!e.target.value)}
+                />
+              }
             />
+
             <FormControlLabel
-              control={<Checkbox />}
+              control={
+                <Checkbox
+                  label="Checkbox Option 2"
+                  checked={check}
+                  onChange={(e) => setCheck(e.target.value)}
+                />
+              }
+              value={check}
               label="Checkbox Option 2"
+              onChange={(e) => setCheck(e.target.value)}
             />
           </FormGroup>
 
@@ -140,13 +183,17 @@ export default function Form() {
               defaultValue={70}
               aria-label="Small"
               valueLabelDisplay="auto"
+              value={slider}
+              onChange={(e) => setSlider(e.target.value)}
             />
           </Box>
+
           <Box>
             <Button
               fullWidth
               variant="secondary"
               sx={{ margin: "10px 0", background: "#DFE0DF" }}
+              type="submit"
             >
               Submit
             </Button>
@@ -154,6 +201,7 @@ export default function Form() {
               fullWidth
               variant="secondary"
               sx={{ margin: "10px 0", background: "#DFE0DF" }}
+              onClick={reset}
             >
               Reset
             </Button>
